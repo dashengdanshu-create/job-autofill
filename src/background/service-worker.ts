@@ -100,6 +100,17 @@ async function relayToDocuments(tab: chrome.tabs.Tab, payload: RuntimeMessage) {
   const results: FillResult[] = [];
   for (const [documentId, plan] of groups) {
     try {
+      // Cover already-open pages and the same exact document as the fill plan.
+      try {
+        await chrome.scripting.executeScript({
+          target: { tabId, documentIds: [documentId] },
+          files: ['content/page-write.js'], world: 'MAIN',
+        });
+      } catch {
+        // activeTab may not permit programmatic injection into a cross-origin
+        // frame. Its manifest script may already be present; the filler waits
+        // for that writer's acknowledgement and fails if it is unavailable.
+      }
       const response = await chrome.tabs.sendMessage(tabId, { type: 'FILL', plan }, { documentId });
       if (!response?.ok) throw new Error('页面没有响应');
       results.push(...(response.results as FillResult[]).map((r) => ({

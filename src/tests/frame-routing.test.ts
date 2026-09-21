@@ -6,7 +6,12 @@ it('aggregates documents, routes each plan precisely, and rejects a changed targ
   let listener: any;
   let activeTab = 7;
   const calls: Array<{ tab: number; message: any; target: any }> = [];
+  const injections: any[] = [];
   const api = {
+    scripting: { executeScript: async (args: any) => {
+      injections.push(args);
+      if (args.target.documentIds[0] === 'doc-b') throw new Error('activeTab cannot inject cross-origin');
+    } },
     runtime: { onInstalled: { addListener() {} }, onMessage: { addListener(fn: any) { listener = fn; } } },
     action: { onClicked: { addListener() {} } },
     tabs: {
@@ -33,6 +38,8 @@ it('aggregates documents, routes each plan precisely, and rejects a changed targ
   assert.deepEqual(filled.results.map((r: any) => r.fieldId), plan.map((p: any) => p.fieldId));
   assert.deepEqual(calls.filter((c) => c.message.type === 'FILL').map((c) => c.target), [{ documentId: 'doc-a' }, { documentId: 'doc-b' }]);
   assert.ok(calls.filter((c) => c.message.type === 'FILL').every((c) => c.message.plan[0].fieldId === 'jaf-1'));
+  assert.deepEqual(injections.map(i => [i.target.documentIds[0], i.world, i.files[0]]),
+    [['doc-a', 'MAIN', 'content/page-write.js'], ['doc-b', 'MAIN', 'content/page-write.js']]);
   const before = calls.length;
   activeTab = 8;
   const stale = await relay({ type: 'FILL', plan });

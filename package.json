@@ -1,6 +1,6 @@
 {
   "name": "job-autofill",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "private": true,
   "description": "Chrome MV3 side-panel extension that fills job application forms from a local Candidate Profile. Never submits.",
   "type": "module",

@@ -286,10 +286,8 @@ export async function fillFieldsSettled(
   };
   for (const entry of plan) {
     const field = byId.get(entry.fieldId);
-    const targetDoc = doc ?? document;
-    const pageWrite = targetDoc.location?.hostname === 'jobs.gdjztech.com' &&
-      (entry.kind === 'text' || entry.kind === 'textarea') &&
-      typeof chrome !== 'undefined';
+    const pageWrite = (entry.kind === 'text' || entry.kind === 'textarea') &&
+      typeof chrome !== 'undefined' && !!chrome.runtime?.id;
     let result: FillResult;
     if (pageWrite) {
       // All existing guards run before the main-world request. No values are
@@ -301,11 +299,17 @@ export async function fillFieldsSettled(
         el.setAttribute('data-jaf-write', token);
         try {
           el.focus?.();
+          if (!el.dispatchEvent(makeEvent('beforeinput', windowOf(el)))) {
+            throw new Error('页面取消了输入');
+          }
           setNativeValue(el, entry.value);
           el.dispatchEvent(new (windowOf(el).Event)('jaf-commit-text', { bubbles: true, composed: true }));
-          await pause(180);
-          if (el.getAttribute('data-jaf-write-result') !== 'ok') {
-            result = { fieldId: entry.fieldId, status: 'failed', reason: '网页兼容脚本未响应，请刷新页面后重新检测' };
+          for (let elapsed = 0; elapsed < 1000; elapsed += 20) {
+            if (el.getAttribute('data-jaf-write-result')?.startsWith(`${token}:`)) break;
+            await pause(20);
+          }
+          if (el.getAttribute('data-jaf-write-result') !== `${token}:ok` || !el.isConnected || el.value !== entry.value) {
+            result = { fieldId: entry.fieldId, status: 'failed', reason: '网页未确认输入或内容已回滚，请重新检测；尚未确认网站保存' };
           }
         } catch {
           result = { fieldId: entry.fieldId, status: 'failed', reason: '网页输入处理失败，请重新加载扩展' };
