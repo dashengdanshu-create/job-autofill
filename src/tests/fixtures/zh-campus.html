@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>2026 校园招聘 · 在线申请</title>
+</head>
+<body>
+<h1>2026 届校园招聘申请表</h1>
+
+<form id="campus-application" action="/apply" method="post">
+
+  <h2>基本信息</h2>
+  <table>
+    <tr><th>姓名</th><td><input type="text" name="realName"></td></tr>
+    <tr><th>手机号码</th><td><input type="tel" name="mobile"></td></tr>
+    <tr><th>电子邮箱</th><td><input type="email" name="email"></td></tr>
+  </table>
+
+  <!--
+    Three sections below share inner labels ("公司名称", "职位") and each repeats
+    twice. Deliberately three different ordinal conventions so the detector's
+    parseOrdinal and the matcher's fallbacks are all exercised by one fixture:
+      教育经历 → no ordinals at all, repeated <tbody> wrappers only
+      实习经历 → 1-based underscore names (intern_1_company)
+      工作经历 → 0-based bracket names (work[0].company)
+    校园经历 uses bare trailing digits (org1 / org2).
+  -->
+
+  <h2>教育经历</h2>
+  <table>
+    <tbody class="edu-row">
+      <tr><th>学校名称</th><td><input type="text" name="school"></td></tr>
+      <tr><th>专业</th><td><input type="text" name="major"></td></tr>
+      <tr><th>学历</th><td>
+        <select name="degree">
+          <option value="">请选择</option>
+          <option value="bachelor">本科</option>
+          <option value="master">硕士</option>
+          <option value="doctorate">博士</option>
+        </select>
+      </td></tr>
+      <tr><th>入学时间</th><td><input type="text" name="eduStart"></td></tr>
+      <tr><th>毕业时间</th><td><input type="text" name="eduEnd"></td></tr>
+    </tbody>
+    <tbody class="edu-row">
+      <tr><th>学校名称</th><td><input type="text" name="school"></td></tr>
+      <tr><th>专业</th><td><input type="text" name="major"></td></tr>
+      <tr><th>学历</th><td>
+        <select name="degree">
+          <option value="">请选择</option>
+          <option value="bachelor">本科</option>
+          <option value="master">硕士</option>
+          <option value="doctorate">博士</option>
+        </select>
+      </td></tr>
+      <tr><th>入学时间</th><td><input type="text" name="eduStart"></td></tr>
+      <tr><th>毕业时间</th><td><input type="text" name="eduEnd"></td></tr>
+    </tbody>
+  </table>
+
+  <h2>实习经历</h2>
+  <table>
+    <tr><th>公司名称</th><td><input type="text" name="intern_1_company"></td></tr>
+    <tr><th>实习职位</th><td><input type="text" name="intern_1_title"></td></tr>
+    <tr><th>所属部门</th><td><input type="text" name="intern_1_department"></td></tr>
+    <tr><th>开始时间</th><td><input type="text" name="intern_1_start"></td></tr>
+    <tr><th>结束时间</th><td><input type="text" name="intern_1_end"></td></tr>
+    <tr><th>实习内容</th><td><textarea name="intern_1_description" rows="3"></textarea></td></tr>
+  </table>
+  <table>
+    <tr><th>公司名称</th><td><input type="text" name="intern_2_company"></td></tr>
+    <tr><th>实习职位</th><td><input type="text" name="intern_2_title"></td></tr>
+    <tr><th>所属部门</th><td><input type="text" name="intern_2_department"></td></tr>
+    <tr><th>开始时间</th><td><input type="text" name="intern_2_start"></td></tr>
+    <tr><th>结束时间</th><td><input type="text" name="intern_2_end"></td></tr>
+    <tr><th>实习内容</th><td><textarea name="intern_2_description" rows="3"></textarea></td></tr>
+  </table>
+
+  <h2>工作经历</h2>
+  <table>
+    <tr><th>公司名称</th><td><input type="text" name="work[0].company"></td></tr>
+    <tr><th>职位</th><td><input type="text" name="work[0].title"></td></tr>
+    <tr><th>所在城市</th><td><input type="text" name="work[0].location"></td></tr>
+    <tr><th>离职原因</th><td><input type="text" name="work[0].leaveReason"></td></tr>
+  </table>
+  <table>
+    <tr><th>公司名称</th><td><input type="text" name="work[1].company"></td></tr>
+    <tr><th>职位</th><td><input type="text" name="work[1].title"></td></tr>
+    <tr><th>所在城市</th><td><input type="text" name="work[1].location"></td></tr>
+    <tr><th>离职原因</th><td><input type="text" name="work[1].leaveReason"></td></tr>
+  </table>
+
+  <h2>校园经历</h2>
+  <table>
+    <tr><th>社团/组织名称</th><td><input type="text" name="org1"></td></tr>
+    <tr><th>担任职务</th><td><input type="text" name="orgRole1"></td></tr>
+    <tr><th>获奖情况</th><td><input type="text" name="orgAward1"></td></tr>
+    <tr><th>活动描述</th><td><textarea name="orgDesc1" rows="3"></textarea></td></tr>
+  </table>
+  <table>
+    <tr><th>社团/组织名称</th><td><input type="text" name="org2"></td></tr>
+    <tr><th>担任职务</th><td><input type="text" name="orgRole2"></td></tr>
+    <tr><th>获奖情况</th><td><input type="text" name="orgAward2"></td></tr>
+    <tr><th>活动描述</th><td><textarea name="orgDesc2" rows="3"></textarea></td></tr>
+  </table>
+
+  <h2>求职意向</h2>
+  <table>
+    <tr><th>期望职位</th><td><input type="text" name="expectPosition"></td></tr>
+    <tr><th>期望城市</th><td><input type="text" name="expectCity"></td></tr>
+  </table>
+
+  <p>
+    <button type="submit" id="submit-application">提交申请</button>
+  </p>
+</form>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>前端开发工程师 - 在线申请</title>
+  <style>
+    body { font: 14px "PingFang SC", system-ui; max-width: 680px; margin: 24px auto; padding: 0 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: right; width: 140px; padding: 8px; font-weight: 600; vertical-align: top; }
+    td { padding: 8px; }
+    input, select, textarea { padding: 6px; font: inherit; width: 100%; }
+    .group { padding: 8px; }
+    .field-label { font-weight: 600; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>应聘登记表</h1>
+
+  <form id="apply-form">
+    <!-- Table layout with the label in a <th>: no <label for> at all.
+         Exercises the detector's table-cell fallback. -->
+    <table>
+      <tr>
+        <th>姓名</th>
+        <td><input name="xingming" required></td>
+      </tr>
+      <tr>
+        <th>性别</th>
+        <td>
+          <label><input type="radio" name="xingbie" value="男"> 男</label>
+          <label><input type="radio" name="xingbie" value="女"> 女</label>
+        </td>
+      </tr>
+      <tr>
+        <th>手机号码</th>
+        <td><input name="shouji" type="tel" required></td>
+      </tr>
+      <tr>
+        <th>电子邮箱</th>
+        <td><input name="youxiang" type="email" required></td>
+      </tr>
+      <tr>
+        <th>微信号</th>
+        <td><input name="weixin"></td>
+      </tr>
+      <tr>
+        <th>出生日期</th>
+        <td><input name="chusheng" placeholder="1995-01-01"></td>
+      </tr>
+      <tr>
+        <th>现居城市</th>
+        <td><input name="chengshi"></td>
+      </tr>
+      <tr>
+        <th>最高学历</th>
+        <td>
+          <select name="xueli">
+            <option value="">请选择</option>
+            <option value="大专">大专</option>
+            <option value="本科">本科</option>
+            <option value="硕士">硕士</option>
+            <option value="博士">博士</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>毕业院校</th>
+        <td><input name="yuanxiao"></td>
+      </tr>
+      <tr>
+        <th>所学专业</th>
+        <td><input name="zhuanye"></td>
+      </tr>
+      <tr>
+        <th>毕业时间</th>
+        <td><input name="biye" placeholder="2020-06"></td>
+      </tr>
+    </table>
+
+    <h2>工作经历</h2>
+    <table>
+      <tr>
+        <th>目前公司</th>
+        <td><input name="gongsi"></td>
+      </tr>
+      <tr>
+        <th>职位名称</th>
+        <td><input name="zhiwei"></td>
+      </tr>
+      <tr>
+        <th>入职时间</th>
+        <td><input name="ruzhi" placeholder="2021-03"></td>
+      </tr>
+      <tr>
+        <th>离职原因</th>
+        <td><input name="lizhi_yuanyin"></td>
+      </tr>
+      <tr>
+        <th>工作内容</th>
+        <td><textarea name="gongzuo_neirong" rows="4"></textarea></td>
+      </tr>
+    </table>
+
+    <h2>求职意向</h2>
+    <table>
+      <tr>
+        <th>应聘职位</th>
+        <td><input name="yingpin_zhiwei"></td>
+      </tr>
+      <tr>
+        <th>期望薪资</th>
+        <td><input name="qiwang_xinzi"></td>
+      </tr>
+      <tr>
+        <th>期望城市</th>
+        <td><input name="qiwang_chengshi"></td>
+      </tr>
+      <tr>
+        <th>到岗时间</th>
+        <td><input name="daogang"></td>
+      </tr>
+      <tr>
+        <th>专业技能</th>
+        <td><input name="jineng"></td>
+      </tr>
+    </table>
+
+    <h2>其他</h2>
+    <!-- div-as-label: no semantic association, only visual proximity -->
+    <div class="group">
+      <div class="field-label">自我介绍</div>
+      <textarea name="zwjs" rows="5"></textarea>
+    </div>
+
+    <div class="group">
+      <div class="field-label">为什么选择我们公司</div>
+      <textarea name="why_us" rows="4"></textarea>
+    </div>
+
+    <!-- 以下字段必须被拦截 -->
+    <table>
+      <tr>
+        <th>身份证号</th>
+        <td><input name="shenfenzheng"></td>
+      </tr>
+      <tr>
+        <th>银行卡号</th>
+        <td><input name="yinhangka"></td>
+      </tr>
+      <tr>
+        <th>短信验证码</th>
+        <td><input name="yanzhengma"></td>
+      </tr>
+    </table>
+
+    <div class="group">
+      <label><input type="checkbox" name="chengnuo"> 我承诺以上信息真实有效，如有虚假愿承担相应责任。</label>
+    </div>
+    <div class="group">
+      <label><input type="checkbox" name="yinsi"> 我已阅读并同意《隐私政策》和《用户协议》。</label>
+    </div>
+
+    <button type="submit">提交申请</button>
+  </form>
+</body>
+</html>

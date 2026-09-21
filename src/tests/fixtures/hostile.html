@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sensitive-field form — everything here must be blocked</title>
+  <style>
+    body { font: 14px system-ui; max-width: 560px; margin: 24px auto; padding: 0 16px; }
+    .row { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+    label { font-weight: 600; font-size: 13px; }
+    input { padding: 6px; font: inherit; }
+  </style>
+</head>
+<body>
+  <h1>Sensitive fields</h1>
+  <p>Every control below must land in the "blocked" band. One safe field is
+     included as a control, to prove the guard is selective rather than blanket.</p>
+
+  <form id="sensitive">
+    <!-- The one field that SHOULD match, so a blanket-block bug is visible -->
+    <div class="row">
+      <label for="ok-email">Email Address</label>
+      <input id="ok-email" name="email" type="email">
+    </div>
+
+    <div class="row">
+      <label for="idcard">ID Card Number</label>
+      <input id="idcard" name="id_card_number">
+    </div>
+
+    <div class="row">
+      <label for="pass">Passport Number</label>
+      <input id="pass" name="passport_number">
+    </div>
+
+    <div class="row">
+      <label for="bank">Bank Account Number</label>
+      <input id="bank" name="bank_account">
+    </div>
+
+    <div class="row">
+      <label for="card">Credit Card Number</label>
+      <input id="card" name="card_number">
+    </div>
+
+    <div class="row">
+      <label for="cvv">CVV</label>
+      <input id="cvv" name="cvv">
+    </div>
+
+    <div class="row">
+      <label for="pw">Password</label>
+      <input id="pw" name="password" type="password">
+    </div>
+
+    <div class="row">
+      <label for="sms">SMS Verification Code</label>
+      <input id="sms" name="sms_code">
+    </div>
+
+    <div class="row">
+      <label for="cap">Enter the CAPTCHA text</label>
+      <input id="cap" name="captcha">
+    </div>
+
+    <div class="row">
+      <label for="otp">One Time Password</label>
+      <input id="otp" name="otp">
+    </div>
+
+    <div class="row">
+      <label for="taxid">Tax ID</label>
+      <input id="taxid" name="tax_id">
+    </div>
+
+    <div class="row">
+      <label for="resume">Upload Resume</label>
+      <input id="resume" name="resume" type="file">
+    </div>
+
+    <div class="row">
+      <label for="sig">Electronic Signature</label>
+      <input id="sig" name="signature">
+    </div>
+
+    <div class="row">
+      <label><input type="checkbox" name="agree" id="ag"> I agree to the Terms and Conditions</label>
+    </div>
+
+    <div class="row">
+      <label><input type="checkbox" name="bgcheck" id="bg"> I consent to a background check</label>
+    </div>
+
+    <div class="row">
+      <label><input type="checkbox" name="declare" id="dec"> I declare under penalty of perjury that the above is true</label>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="abc123">
+
+    <button type="submit" id="go">Submit Application</button>
+  </form>
+</body>
+</html>

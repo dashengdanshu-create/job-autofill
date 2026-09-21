@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://job-autofill.local/schema/candidate-profile-0.1.json",
+  "title": "CandidateProfile",
+  "description": "Locally stored job-application profile. Intentionally has no field for government ID, passport, or bank details.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "basic", "contact"],
+  "properties": {
+    "schemaVersion": { "const": "0.1" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+
+    "basic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fullName": { "type": "string", "description": "Name as written on the resume" },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "middleName": { "type": "string" },
+        "preferredName": { "type": "string" },
+        "nameLatin": { "type": "string", "description": "Romanised name for CJK applicants" },
+        "nameKana": { "type": "string", "description": "Japanese furigana (フリガナ)" },
+        "pronouns": { "type": "string" },
+        "gender": { "type": "string", "enum": ["male", "female", "nonbinary", "undisclosed", ""] },
+        "birthDate": { "type": "string", "description": "YYYY-MM-DD; used only where legally requested" },
+        "nationality": { "type": "string" },
+        "headline": { "type": "string", "description": "One-line professional summary" },
+        "summary": { "type": "string" },
+        "photoUrl": { "type": "string" }
+      }
+    },
+
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "emailAlternate": { "type": "string", "format": "email" },
+        "phone": { "type": "string", "description": "Local format, e.g. 13800138000" },
+        "phoneCountryCode": { "type": "string", "description": "e.g. +86" },
+        "phoneE164": { "type": "string", "description": "e.g. +8613800138000" },
+        "wechat": { "type": "string" },
+        "line": { "type": "string" },
+        "address": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "line1": { "type": "string" },
+            "line2": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string", "description": "Province / prefecture / state" },
+            "postalCode": { "type": "string" },
+            "country": { "type": "string" }
+          }
+        },
+        "links": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "website": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "github": { "type": "string" },
+            "portfolio": { "type": "string" },
+            "other": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "school": { "type": "string" },
+          "schoolLatin": { "type": "string" },
+          "degree": {
+            "type": "string",
+            "enum": ["highschool", "associate", "bachelor", "master", "doctorate", "other", ""]
+          },
+          "degreeLabel": { "type": "string", "description": "Free-text degree as printed, e.g. 工学学士" },
+          "major": { "type": "string" },
+          "minor": { "type": "string" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string", "description": "Empty when ongoing" },
+          "ongoing": { "type": "boolean" },
+          "gpa": { "type": "string" },
+          "gpaScale": { "type": "string" },
+          "location": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "workExperience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "company": { "type": "string" },
+          "companyLatin": { "type": "string" },
+          "title": { "type": "string" },
+          "department": { "type": "string" },
+          "employmentType": {
+            "type": "string",
+            "enum": ["fulltime", "parttime", "contract", "internship", "freelance", ""]
+          },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" },
+          "current": { "type": "boolean" },
+          "location": { "type": "string" },
+          "industry": { "type": "string" },
+          "teamSize": { "type": "string" },
+          "reportsTo": { "type": "string" },
+          "salaryLabel": { "type": "string", "description": "Optional, user-controlled; often requested on CN boards" },
+          "leaveReason": { "type": "string", "description": "离职原因 — commonly required on CN boards" },
+          "description": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "internships": {
+      "type": "array",
+      "description": "Kept separate from workExperience because CN campus forms print 实习经历 and 工作经历 as distinct sections with identical inner labels",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "company": { "type": "string" },
+          "companyLatin": { "type": "string" },
+          "title": { "type": "string" },
+          "department": { "type": "string" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string", "description": "Empty when ongoing" },
+          "ongoing": { "type": "boolean" },
+          "location": { "type": "string" },
+          "industry": { "type": "string" },
+          "commitment": { "type": "string", "description": "Days per week or hours, e.g. 每周 5 天" },
+          "description": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "campusExperience": {
+      "type": "array",
+      "description": "校园经历 / 课外活动 — clubs, student bodies, competitions, volunteering",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "organization": { "type": "string", "description": "Club, society, student body, or the competition's organiser" },
+          "role": { "type": "string", "description": "Post held, e.g. 部长 / 队长 / 志愿者" },
+          "activity": { "type": "string", "description": "What the activity was, when the organisation name is not self-evident" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string", "description": "Empty when ongoing" },
+          "ongoing": { "type": "boolean" },
+          "awards": { "type": "string", "description": "Prizes or honours attached to this activity" },
+          "description": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "organization": { "type": "string" },
+          "startDate": { "type": "string" },
+          "endDate": { "type": "string" },
+          "url": { "type": "string" },
+          "repoUrl": { "type": "string" },
+          "techStack": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string" },
+          "highlights": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "language": { "type": "string" },
+          "proficiency": {
+            "type": "string",
+            "enum": ["native", "fluent", "professional", "intermediate", "basic", ""]
+          },
+          "certification": { "type": "string", "description": "e.g. JLPT N1, IELTS 7.5, CET-6" },
+          "score": { "type": "string" }
+        }
+      }
+    },
+
+    "skills": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primary": { "type": "array", "items": { "type": "string" } },
+        "secondary": { "type": "array", "items": { "type": "string" } },
+        "tools": { "type": "array", "items": { "type": "string" } },
+        "certifications": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "jobPreferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "targetTitles": { "type": "array", "items": { "type": "string" } },
+        "targetIndustries": { "type": "array", "items": { "type": "string" } },
+        "employmentType": {
+          "type": "string",
+          "enum": ["fulltime", "parttime", "contract", "internship", "freelance", ""]
+        },
+        "workMode": { "type": "string", "enum": ["onsite", "hybrid", "remote", ""] },
+        "preferredLocations": { "type": "array", "items": { "type": "string" } },
+        "willingToRelocate": { "type": "boolean" },
+        "noticePeriod": { "type": "string", "description": "e.g. 1 month / 一个月" },
+        "availableFrom": { "type": "string" },
+        "expectedSalary": { "type": "string" },
+        "expectedSalaryCurrency": { "type": "string" },
+        "salaryPeriod": { "type": "string", "enum": ["year", "month", "day", "hour", ""] },
+        "requiresVisaSponsorship": { "type": "boolean" },
+        "workAuthorization": { "type": "string", "description": "Free text, e.g. 'PRC citizen, no sponsorship needed'" }
+      }
+    },
+
+    "answerTemplates": {
+      "type": "array",
+      "description": "Reusable answers for recurring long-form questions.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "answer"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Stable id, e.g. whyThisCompany / coverLetter / selfIntroduction"
+          },
+          "label": { "type": "string" },
+          "answer": { "type": "string" },
+          "locale": { "type": "string", "enum": ["zh", "en", "ja", "any", ""] },
+          "matchHints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Extra phrases that should route a question to this template"
+          }
+        }
+      }
+    },
+
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "defaultLocale": { "type": "string", "enum": ["zh", "en", "ja", ""] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

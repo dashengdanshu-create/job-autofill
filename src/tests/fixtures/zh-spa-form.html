@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>校园招聘 · 在线申请（组件库版）</title>
+</head>
+<body>
+<div id="app">
+<h1>2026 届校园招聘</h1>
+
+<!--
+  The structure enterprise campus systems actually ship: a component framework's
+  two-column form row. Three properties break every association-based label
+  lookup at once, and all three are load-bearing for this fixture:
+
+    1. `<label>` has NO `for` attribute.
+    2. The control has NO `id` — its `name` is a generated opaque token, so the
+       identifier carries no signal either.
+    3. The control sits several divs deep, in a *sibling column* of the label.
+
+  Together these mean the label is only reachable by walking up from the control
+  and looking at earlier siblings. Class names are deliberately ant-design-like
+  but the detector must not depend on them.
+-->
+
+<form class="ant-form ant-form-horizontal" action="/api/apply" method="post">
+
+  <h2>基本信息</h2>
+
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-6 ant-form-item-label">
+      <label class="ant-form-item-required">姓名<span class="req">*</span></label>
+    </div>
+    <div class="ant-col ant-col-18 ant-form-item-control">
+      <div class="ant-form-item-control-input">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_7a2c91">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-6 ant-form-item-label"><label>手机号码</label></div>
+    <div class="ant-col ant-col-18 ant-form-item-control">
+      <div class="ant-form-item-control-input">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_3e8b04">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-6 ant-form-item-label"><label>电子邮箱</label></div>
+    <div class="ant-col ant-col-18 ant-form-item-control">
+      <div class="ant-form-item-control-input">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_c05df7">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-6 ant-form-item-label"><label>英文名 (选填)</label></div>
+    <div class="ant-col ant-col-18 ant-form-item-control">
+      <div class="ant-form-item-control-input">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_91ab6d">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>教育经历</h2>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>学校名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_edu_a1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>专业</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_edu_a2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>学历</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <select class="ant-select" name="f_edu_a3">
+            <option value="">请选择</option>
+            <option value="bachelor">本科</option>
+            <option value="master">硕士</option>
+            <option value="doctorate">博士</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>学校名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_edu_b1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>专业</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_edu_b2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>学历</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <select class="ant-select" name="f_edu_b3">
+            <option value="">请选择</option>
+            <option value="bachelor">本科</option>
+            <option value="master">硕士</option>
+            <option value="doctorate">博士</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    实习经历 and 工作经历 below use the SAME inner label ("公司名称") and carry no
+    ordinal in their opaque names, so section inference and repeat counting are
+    both exercised through this deeply-nested structure.
+  -->
+
+  <h2>实习经历</h2>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>公司名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_int_a1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>职位</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_int_a2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>工作内容</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <textarea class="ant-input" name="f_int_a3" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>公司名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_int_b1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>职位</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_int_b2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>工作内容</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <textarea class="ant-input" name="f_int_b3" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>工作经历</h2>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>公司名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_a1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>职位</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_a2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>离职原因</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_a3">
+        </div>
+      </div>
+    </div>
+    <!-- The salary *at this job*, which must not receive the expected salary. -->
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>月薪（税前）</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_a4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>公司名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_b1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>职位</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_b2">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>离职原因</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_wrk_b3">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>校园经历</h2>
+
+  <div class="exp-card">
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>社团/组织名称</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_cam_a1">
+        </div>
+      </div>
+    </div>
+    <div class="ant-row ant-form-item">
+      <div class="ant-col ant-col-6 ant-form-item-label"><label>担任职务</label></div>
+      <div class="ant-col ant-col-18 ant-form-item-control">
+        <div class="ant-form-item-control-input-content">
+          <input type="text" class="ant-input" name="f_cam_a2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>求职意向</h2>
+
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-6 ant-form-item-label"><label>期望职位</label></div>
+    <div class="ant-col ant-col-18 ant-form-item-control">
+      <div class="ant-form-item-control-input-content">
+        <input type="text" class="ant-input" name="f_pref_1">
+      </div>
+    </div>
+  </div>
+
+  <!-- Must stay untouched: a consent checkbox and a submit button. -->
+  <div class="ant-row ant-form-item">
+    <div class="ant-col ant-col-24 ant-form-item-control">
+      <label class="ant-checkbox-wrapper">
+        <input type="checkbox" name="f_agree"> 我已阅读并同意《个人信息处理授权书》
+      </label>
+    </div>
+  </div>
+
+  <div class="ant-form-item">
+    <button type="submit" class="ant-btn ant-btn-primary" id="do-submit">提交申请</button>
+  </div>
+</form>
+</div>
+</body>
+</html>

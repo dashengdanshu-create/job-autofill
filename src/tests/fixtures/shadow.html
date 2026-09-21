@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><title>Component form</title>
+<div id="email-host"></div><div id="phone-host"></div>
+<script>
+const email = document.querySelector('#email-host').attachShadow({mode:'open'});
+email.innerHTML = '<label for="same-id">电子邮箱</label><input id="same-id" type="email">';
+const outer = document.querySelector('#phone-host').attachShadow({mode:'open'});
+outer.innerHTML = '<div id="nested"></div>';
+outer.querySelector('#nested').attachShadow({mode:'open'}).innerHTML = '<label for="same-id">手机号</label><input id="same-id" type="tel">';
+window.committed = {};
+document.addEventListener('input', e => { window.committed[e.composedPath()[0].type] = e.composedPath()[0].value; });
+</script>

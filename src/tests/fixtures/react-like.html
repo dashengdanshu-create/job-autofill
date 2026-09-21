@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Controlled-input form (React-like)</title>
+  <style>
+    body { font: 14px system-ui; max-width: 560px; margin: 24px auto; padding: 0 16px; }
+    .row { margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px; }
+    label { font-weight: 600; font-size: 13px; }
+    input, select, textarea { padding: 6px; font: inherit; }
+    #mirror { background: #f6f8fa; padding: 8px; font-family: monospace; font-size: 12px; white-space: pre; }
+  </style>
+</head>
+<body>
+  <h1>Controlled inputs</h1>
+  <p>Each field mimics a React controlled component: a value tracker dedupes
+     input events, and state is only committed when a non-deduped event fires.</p>
+
+  <form id="controlled">
+    <div class="row">
+      <label for="name">Full Name</label>
+      <input id="name" name="fullName">
+    </div>
+    <div class="row">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email">
+    </div>
+    <div class="row">
+      <label for="phone">Mobile Phone</label>
+      <input id="phone" name="phone" type="tel">
+    </div>
+    <div class="row">
+      <label for="intro">Tell us about yourself</label>
+      <textarea id="intro" name="intro" rows="4"></textarea>
+    </div>
+    <div class="row">
+      <label for="mode">Work Arrangement</label>
+      <select id="mode" name="workMode">
+        <option value="">Select…</option>
+        <option value="onsite">On-site</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="remote">Remote</option>
+      </select>
+    </div>
+  </form>
+
+  <h2>Committed state</h2>
+  <div id="mirror">{}</div>
+
+  <script>
+    // Minimal reproduction of React's ChangeEventPlugin value tracking.
+    // If a caller sets .value without clearing the tracker, the subsequent
+    // 'input' event is treated as a no-op and state never updates — which is
+    // exactly the bug the filler's clearReactTracker() avoids.
+    const state = {};
+    const mirror = document.getElementById('mirror');
+
+    function track(node) {
+      let current = node.value;
+      const tracker = {
+        getValue() { return current; },
+        setValue(v) { current = String(v); },
+      };
+      Object.defineProperty(node, '_valueTracker', { value: tracker, configurable: true });
+
+      node.addEventListener('input', () => {
+        if (node.value === tracker.getValue()) return; // deduped, as React does
+        tracker.setValue(node.value);
+        state[node.name] = node.value;
+        render();
+      });
+      node.addEventListener('change', () => {
+        if (node.value === tracker.getValue()) return;
+        tracker.setValue(node.value);
+        state[node.name] = node.value;
+        render();
+      });
+    }
+
+    function render() {
+      mirror.textContent = JSON.stringify(state, null, 2);
+    }
+
+    document.querySelectorAll('#controlled input, #controlled textarea, #controlled select')
+      .forEach(track);
+    render();
+  </script>
+</body>
+</html>

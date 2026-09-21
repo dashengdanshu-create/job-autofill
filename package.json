@@ -1,0 +1,31 @@
+{
+  "name": "job-autofill",
+  "version": "0.2.7",
+  "private": true,
+  "description": "Chrome MV3 side-panel extension that fills job application forms from a local Candidate Profile. Never submits.",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test src/tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "verify": "npm run typecheck && npm run build && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/chrome": "0.0.287",
+    "@types/node": "22.10.2",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "esbuild": "0.28.2",
+    "linkedom": "0.18.5",
+    "tsx": "4.23.13",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

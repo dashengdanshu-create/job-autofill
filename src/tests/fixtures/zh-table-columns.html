@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>校园招聘 · 在线申请（横向表格版）</title>
+</head>
+<body>
+<h1>2026 届校园招聘</h1>
+
+<!--
+  The other table orientation. zh-generic.html and zh-campus.html are *vertical*
+  tables: each row is one field, `<th>` on the left holds its label. This one is
+  *horizontal*: the labels are column headers in `<thead>`, and each `<tbody>`
+  row is a whole entry.
+
+  That flip breaks the row-header lookup. Asking for "the `<th>` in my row" gives
+  every input in the row the same text — the entire header line run together —
+  so all four columns match the same key and dedupe demotes the lot to review.
+  A cell's *column position* is the only thing that identifies its label.
+
+  Also here: labels the profile has no slot for (证明人姓名, 培训机构). Those must
+  stay unmatched rather than being forced onto a near-miss key.
+-->
+
+<form action="/api/apply" method="post">
+
+  <h2>基本信息</h2>
+  <table>
+    <tr><th>姓名</th><td><input type="text" name="b_name"></td></tr>
+    <tr><th>手机号码</th><td><input type="text" name="b_phone"></td></tr>
+    <tr><th>电子邮箱</th><td><input type="text" name="b_mail"></td></tr>
+  </table>
+
+  <h2>教育经历</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>学校名称</th><th>专业名称</th><th>学历</th>
+        <th>开始时间</th><th>毕业时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" name="e_a1"></td>
+        <td><input type="text" name="e_a2"></td>
+        <td>
+          <select name="e_a3">
+            <option value="">请选择</option>
+            <option value="undergraduate">本科</option>
+            <option value="master">硕士</option>
+          </select>
+        </td>
+        <td><input type="text" name="e_a4"></td>
+        <td><input type="text" name="e_a5"></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="e_b1"></td>
+        <td><input type="text" name="e_b2"></td>
+        <td>
+          <select name="e_b3">
+            <option value="">请选择</option>
+            <option value="undergraduate">本科</option>
+            <option value="master">硕士</option>
+          </select>
+        </td>
+        <td><input type="text" name="e_b4"></td>
+        <td><input type="text" name="e_b5"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>工作经历</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>公司名称</th><th>职位名称</th><th>所在部门</th>
+        <th>月薪（税前）</th><th>离职原因</th>
+        <!-- No profile slot: a referee is a third party, not the candidate. -->
+        <th>证明人姓名</th><th>证明人联系方式</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" name="w_a1"></td>
+        <td><input type="text" name="w_a2"></td>
+        <td><input type="text" name="w_a3"></td>
+        <td><input type="text" name="w_a4"></td>
+        <td><input type="text" name="w_a5"></td>
+        <td><input type="text" name="w_a6"></td>
+        <td><input type="text" name="w_a7"></td>
+      </tr>
+      <tr>
+        <td><input type="text" name="w_b1"></td>
+        <td><input type="text" name="w_b2"></td>
+        <td><input type="text" name="w_b3"></td>
+        <td><input type="text" name="w_b4"></td>
+        <td><input type="text" name="w_b5"></td>
+        <td><input type="text" name="w_b6"></td>
+        <td><input type="text" name="w_b7"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- A merged header spanning two columns: the offset must still line up. -->
+  <h2>培训经历</h2>
+  <table>
+    <thead>
+      <tr><th colspan="2">培训机构 / 培训课程</th><th>开始时间</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="text" name="t_a1"></td>
+        <td><input type="text" name="t_a2"></td>
+        <td><input type="text" name="t_a3"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>求职意向</h2>
+  <table>
+    <tr><th>期望职位</th><td><input type="text" name="p_title"></td></tr>
+    <tr><th>期望薪资</th><td><input type="text" name="p_salary"></td></tr>
+  </table>
+
+  <!-- Must stay untouched. -->
+  <p>
+    <label><input type="checkbox" name="agree"> 我已阅读并同意《个人信息处理授权书》</label>
+  </p>
+  <p><button type="submit" id="do-submit">提交申请</button></p>
+</form>
+</body>
+</html>

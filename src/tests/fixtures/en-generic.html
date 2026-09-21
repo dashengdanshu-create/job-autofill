@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Senior Frontend Engineer — Application</title>
+  <style>
+    body { font: 14px system-ui; max-width: 640px; margin: 24px auto; padding: 0 16px; }
+    .row { margin-bottom: 14px; display: flex; flex-direction: column; gap: 4px; }
+    label { font-weight: 600; font-size: 13px; }
+    input, select, textarea { padding: 6px; font: inherit; }
+    fieldset { margin: 14px 0; }
+    .question { font-weight: 600; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Apply: Senior Frontend Engineer</h1>
+
+  <form id="application">
+    <h2>Personal information</h2>
+
+    <div class="row">
+      <label for="fn">First Name *</label>
+      <input id="fn" name="first_name" autocomplete="given-name" required>
+    </div>
+
+    <div class="row">
+      <label for="ln">Last Name *</label>
+      <input id="ln" name="last_name" autocomplete="family-name" required>
+    </div>
+
+    <div class="row">
+      <label for="em">Email Address *</label>
+      <input id="em" name="email" type="email" autocomplete="email" required>
+    </div>
+
+    <div class="row">
+      <label for="ph">Phone Number *</label>
+      <input id="ph" name="phone" type="tel" autocomplete="tel" required>
+    </div>
+
+    <div class="row">
+      <label for="loc">City</label>
+      <input id="loc" name="city" autocomplete="address-level2">
+    </div>
+
+    <div class="row">
+      <label for="cty">Country</label>
+      <select id="cty" name="country">
+        <option value="">Select…</option>
+        <option value="CN">China</option>
+        <option value="JP">Japan</option>
+        <option value="US">United States</option>
+        <option value="GB">United Kingdom</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="li">LinkedIn Profile</label>
+      <input id="li" name="linkedin_url" type="url">
+    </div>
+
+    <div class="row">
+      <label for="gh">GitHub</label>
+      <input id="gh" name="github" type="url">
+    </div>
+
+    <h2>Experience</h2>
+
+    <div class="row">
+      <label for="co">Current Company</label>
+      <input id="co" name="current_company">
+    </div>
+
+    <div class="row">
+      <label for="ti">Current Job Title</label>
+      <input id="ti" name="job_title">
+    </div>
+
+    <div class="row">
+      <label for="sch">University</label>
+      <input id="sch" name="school">
+    </div>
+
+    <div class="row">
+      <label for="deg">Highest Level of Education</label>
+      <select id="deg" name="degree">
+        <option value="">Select…</option>
+        <option value="high_school">High School</option>
+        <option value="bachelors">Bachelor's Degree</option>
+        <option value="masters">Master's Degree</option>
+        <option value="phd">Doctorate</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label for="maj">Field of Study</label>
+      <input id="maj" name="major">
+    </div>
+
+    <div class="row">
+      <label for="sk">Key Skills</label>
+      <input id="sk" name="skills">
+    </div>
+
+    <h2>Preferences</h2>
+
+    <div class="row">
+      <label for="sal">Expected Salary</label>
+      <input id="sal" name="expected_salary">
+    </div>
+
+    <div class="row">
+      <label for="avail">Earliest Start Date</label>
+      <input id="avail" name="available_from" type="text" placeholder="YYYY-MM-DD">
+    </div>
+
+    <fieldset>
+      <legend>Are you willing to relocate?</legend>
+      <label><input type="radio" name="relocate" value="yes"> Yes</label>
+      <label><input type="radio" name="relocate" value="no"> No</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Do you require visa sponsorship?</legend>
+      <label><input type="radio" name="sponsorship" value="yes"> Yes</label>
+      <label><input type="radio" name="sponsorship" value="no"> No</label>
+    </fieldset>
+
+    <div class="row">
+      <label for="mode">Work Arrangement Preference</label>
+      <select id="mode" name="work_mode">
+        <option value="">Select…</option>
+        <option value="onsite">On-site</option>
+        <option value="hybrid">Hybrid</option>
+        <option value="remote">Remote</option>
+      </select>
+    </div>
+
+    <h2>Questions</h2>
+
+    <div class="row">
+      <label for="cl">Cover Letter</label>
+      <textarea id="cl" name="cover_letter" rows="6"></textarea>
+    </div>
+
+    <div class="row">
+      <label for="why">Why do you want to work here?</label>
+      <textarea id="why" name="why_company" rows="4"></textarea>
+    </div>
+
+    <!-- Must never be auto-filled -->
+    <div class="row">
+      <label for="ssn">Social Security Number</label>
+      <input id="ssn" name="ssn">
+    </div>
+
+    <div class="row">
+      <label for="vcode">Verification Code</label>
+      <input id="vcode" name="verification_code">
+    </div>
+
+    <div class="row">
+      <label><input type="checkbox" name="agree_terms" id="agree"> I certify that the information provided is truthful and complete.</label>
+    </div>
+
+    <div class="row">
+      <label><input type="checkbox" name="privacy" id="pp"> I have read and agree to the Privacy Policy.</label>
+    </div>
+
+    <button type="submit" id="submit-btn">Submit Application</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>フロントエンドエンジニア 応募フォーム</title>
+  <style>
+    body { font: 14px "Hiragino Sans", system-ui; max-width: 660px; margin: 24px auto; padding: 0 16px; }
+    dl { margin: 0; }
+    dt { font-weight: 600; font-size: 13px; margin-top: 12px; }
+    dd { margin: 4px 0 0; }
+    input, select, textarea { padding: 6px; font: inherit; width: 100%; }
+    fieldset { margin: 14px 0; }
+  </style>
+</head>
+<body>
+  <h1>エントリーフォーム</h1>
+
+  <form id="entry">
+    <dl>
+      <dt><label for="nm">氏名</label></dt>
+      <dd><input id="nm" name="name" required></dd>
+
+      <dt><label for="kn">フリガナ</label></dt>
+      <dd><input id="kn" name="name_kana" required></dd>
+
+      <dt><label for="ml">メールアドレス</label></dt>
+      <dd><input id="ml" name="mail" type="email" required></dd>
+
+      <dt><label for="tel">電話番号</label></dt>
+      <dd><input id="tel" name="tel" type="tel" required></dd>
+
+      <dt><label for="zip">郵便番号</label></dt>
+      <dd><input id="zip" name="zip" autocomplete="postal-code"></dd>
+
+      <dt><label for="pref">都道府県</label></dt>
+      <dd>
+        <select id="pref" name="prefecture">
+          <option value="">選択してください</option>
+          <option value="tokyo">東京都</option>
+          <option value="osaka">大阪府</option>
+          <option value="kyoto">京都府</option>
+        </select>
+      </dd>
+
+      <dt><label for="addr">現住所</label></dt>
+      <dd><input id="addr" name="address"></dd>
+
+      <dt><label for="bd">生年月日</label></dt>
+      <dd><input id="bd" name="birthday" placeholder="1995-01-01"></dd>
+
+      <dt><label for="sch">学校名</label></dt>
+      <dd><input id="sch" name="school_name"></dd>
+
+      <dt><label for="gk">最終学歴</label></dt>
+      <dd>
+        <select id="gk" name="education">
+          <option value="">選択してください</option>
+          <option value="senmon">専門学校卒</option>
+          <option value="daigaku">大学卒</option>
+          <option value="daigakuin">大学院卒</option>
+        </select>
+      </dd>
+
+      <dt><label for="senkou">専攻</label></dt>
+      <dd><input id="senkou" name="major"></dd>
+
+      <dt><label for="co">会社名</label></dt>
+      <dd><input id="co" name="company"></dd>
+
+      <dt><label for="sk">職種</label></dt>
+      <dd><input id="sk" name="job_type"></dd>
+
+      <dt><label for="gyoumu">職務内容</label></dt>
+      <dd><textarea id="gyoumu" name="job_description" rows="4"></textarea></dd>
+
+      <dt><label for="kibou">希望職種</label></dt>
+      <dd><input id="kibou" name="desired_position"></dd>
+
+      <dt><label for="nen">希望年収</label></dt>
+      <dd><input id="nen" name="desired_salary"></dd>
+
+      <dt><label for="kinmu">希望勤務地</label></dt>
+      <dd><input id="kinmu" name="desired_location"></dd>
+
+      <dt><label for="nyusha">入社可能日</label></dt>
+      <dd><input id="nyusha" name="available_date"></dd>
+
+      <dt><label for="skill">保有スキル</label></dt>
+      <dd><input id="skill" name="skills"></dd>
+
+      <dt><label for="shikaku">保有資格</label></dt>
+      <dd><input id="shikaku" name="certifications"></dd>
+
+      <dt><label for="pr">自己PR</label></dt>
+      <dd><textarea id="pr" name="self_pr" rows="5"></textarea></dd>
+
+      <dt><label for="doki">志望動機</label></dt>
+      <dd><textarea id="doki" name="motivation" rows="5"></textarea></dd>
+    </dl>
+
+    <fieldset>
+      <legend>転勤可否</legend>
+      <label><input type="radio" name="tenkin" value="可"> 可</label>
+      <label><input type="radio" name="tenkin" value="不可"> 不可</label>
+    </fieldset>
+
+    <!-- 以下は必ずブロックされること -->
+    <dl>
+      <dt><label for="mn">マイナンバー</label></dt>
+      <dd><input id="mn" name="my_number"></dd>
+
+      <dt><label for="pp">パスポート番号</label></dt>
+      <dd><input id="pp" name="passport_no"></dd>
+
+      <dt><label for="ninsho">認証コード</label></dt>
+      <dd><input id="ninsho" name="auth_code"></dd>
+
+      <dt><label for="ginko">銀行口座番号</label></dt>
+      <dd><input id="ginko" name="bank_account"></dd>
+    </dl>
+
+    <div>
+      <label><input type="checkbox" name="doui"> 個人情報の取扱いについて同意します。</label>
+    </div>
+
+    <button type="submit">応募する</button>
+  </form>
+</body>
+</html>

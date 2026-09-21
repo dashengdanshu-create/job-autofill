@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Job Autofill",
+  "version": "0.2.7",
+  "description": "Fills job application forms from a local Candidate Profile. Reviews before filling. Never submits.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "webNavigation"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  },
+  "action": {
+    "default_title": "Open Job Autofill"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content/index.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true,
+      "match_about_blank": true
+    },
+    {
+      "matches": [
+        "https://jobs.gdjztech.com/*"
+      ],
+      "js": [
+        "content/page-write.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'none'"
+  }
+}
